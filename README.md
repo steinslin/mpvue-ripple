@@ -4,7 +4,7 @@
 
 ## Screenshots
 
-![](./screenshots.gif)
+![](./s.gif)
 
 ## Install
 
@@ -47,3 +47,11 @@ page {
 }
 </style>
 ```
+
+## TODO
+
+- support another type
+
+## Other Component
+
+- [mpvue-toast](https://github.com/linrui1994/mpvue-toast)
