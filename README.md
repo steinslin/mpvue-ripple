@@ -18,7 +18,10 @@ npm install mpvue-ripple --save
 <template>
   <div>
     <ripple ripple-class="ripple-test">
-      <div>ripple test</div>
+      <div>ripple fill</div>
+    </ripple>
+    <ripple ripple-class="ripple-test" type="circle">
+      <div>ripple circle</div>
     </ripple>
   </div>
 </template>
@@ -54,6 +57,7 @@ page {
 | ---------  | ----------------------- | ------- | ---- | ------ |
 | duration    | 水波纹持续时间     | Number | -    | 1000   |
 | ripple-class | 外层包裹器的class | String | - | - |
+| type | 水波纹类型 | String | `fill` `circle` | `fill` |
 
 ## Slot
 
@@ -62,7 +66,8 @@ page {
 
 ## TODO
 
-- support another type
+- api
+- test
 
 ## Other Component
 

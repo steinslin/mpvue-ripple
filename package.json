@@ -1,6 +1,6 @@
 {
   "name": "mpvue-ripple",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "mpvue-ripple is a ripple component for mpvue.",
   "author": "linrui <linrui1994@foxmail.com>",
   "main": "src/Ripple.vue",

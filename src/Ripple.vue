@@ -1,38 +1,58 @@
 <template>
-  <div class="ripple-wrapper" :class="classes" @click="handleClick">
+  <div class="ripple-wrapper" :class="classes" @click="handleClick" :id="'ripple-wrapper-' + id">
     <slot></slot>
     <div class="ripple-content" :style="style"></div>
   </div>
 </template>
 
 <script>
+let id = 1
 export default {
+  name: 'ripple',
   props: {
     duration: {
       type: Number,
       default: 1000
     },
-    rippleClass: String
+    rippleClass: String,
+    type: {
+      type: String,
+      default: 'fill',
+      validator(v) {
+        return ['fill', 'circle'].indexOf(v) !== -1
+      }
+    }
   },
   data () {
     return {
       style: '',
-      timer: null
+      timer: null,
+      wrapperX: 0,
+      wrapperY: 0,
+      id
     }
   },
   computed: {
     classes () {
       const classes = []
       this.rippleClass && classes.push(this.rippleClass)
+      classes.push(`ripple-wrapper-${this.type}`)
       return classes.join(' ')
     }
   },
+  created() {
+    id++
+    const systemInfo = wx.getSystemInfoSync()
+    this.pRpx = 750 / systemInfo.screenWidth
+  },
   mounted () {
     const query = wx.createSelectorQuery()
-    query.select('.ripple-wrapper').boundingClientRect(rect => {
-      this.wrapperX = rect.left
-      this.wrapperY = rect.top
-    }).exec()
+    setTimeout(() => {
+      query.select(`#ripple-wrapper-${this.id}`).boundingClientRect(rect => {
+        this.wrapperX = rect.left
+        this.wrapperY = rect.top
+      }).exec()
+    }, 200)
   },
   methods: {
     handleClick (e) {
@@ -44,9 +64,9 @@ export default {
       this.$nextTick(() => {
         const { x, y } = e
         const style = {
-          left: `${x - this.wrapperX}px`,
-          top: `${y - this.wrapperY}px`,
-          animation: `ripple ${this.duration / 1000}s cubic-bezier(0, 0, 0.2, 1)`
+          left: `${(x - this.wrapperX) * this.pRpx - 40}rpx`,
+          top: `${(y - this.wrapperY) * this.pRpx - 40}rpx`,
+          animation: `ripple-${this.type} ${this.duration / 1000}s cubic-bezier(0, 0, 0.2, 1)`
         }
         let s = ''
         Object.keys(style).forEach(k => {
@@ -65,7 +85,6 @@ export default {
 <style lang='scss' scoped>
 .ripple-wrapper {
   position: relative;
-  overflow: hidden;
   .ripple-content {
     background: rgba(18, 150, 220, 0.15);
     border-radius: 50%;
@@ -74,13 +93,31 @@ export default {
     position: absolute;
     transform: scale(0);
   }
+  &-fill {
+    overflow: hidden;
+  }
+  &-circle {
+    .ripple-content {
+      background: rgba(18, 150, 220, 0.4);
+    }
+  }
 }
-@keyframes ripple {
+@keyframes ripple-fill {
   0% {
     transform: scale(0);
   }
   100% {
     transform: scale(15);
+  }
+}
+@keyframes ripple-circle {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
   }
 }
 </style>
