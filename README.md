@@ -62,6 +62,7 @@ page {
 ## Slot
 
 | name | 说明 |
+| ---- | ---- |
 | default | - |
 
 ## TODO
