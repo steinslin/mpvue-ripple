@@ -48,6 +48,18 @@ page {
 </style>
 ```
 
+## Props
+
+| 参数        | 说明                      | 类型      | 可选值  | 默认值    |
+| ---------  | ----------------------- | ------- | ---- | ------ |
+| duration    | 水波纹持续时间     | Number | -    | 1000   |
+| ripple-class | 外层包裹器的class | String | - | - |
+
+## Slot
+
+| name | 说明 |
+| default | - |
+
 ## TODO
 
 - support another type
