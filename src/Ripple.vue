@@ -82,7 +82,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 .ripple-wrapper {
   position: relative;
   .ripple-content {
